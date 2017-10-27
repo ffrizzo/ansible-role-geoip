@@ -1,0 +1,5 @@
+---
+
+geoip_url: http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
+geoip_download_file: /tmp/geo.mdb.gz
+geoip_file: /tmp/geo.mdb

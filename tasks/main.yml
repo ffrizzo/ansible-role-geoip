@@ -1,0 +1,30 @@
+---
+
+- stat:
+    path: "{{ geoip_download_file }}"
+  register: geoip
+
+- name: Remove {{ geoip_download_file }} file
+  file:
+    path: "{{ geoip_download_file }}"
+    state: absent
+  when: geoip.stat.exists
+
+- name: Download GeoLite City database
+  get_url:
+    url: "{{ geoip_url }}"
+    dest: "{{ geoip_download_file }}"
+
+- stat:
+    path: "{{ geoip_file }}"
+  register: geoip
+
+- name: Remove {{ geoip_file }} file
+  file:
+    path: "{{ geoip_file }}"
+    state: absent
+  when: geoip.stat.exists
+
+- name: Extract GeoLite database
+  shell: |
+    gunzip "{{ geoip_download_file }}"
